@@ -17,8 +17,11 @@ export function useCart() {
 }
 
 export function Marquee() {
-  return <div className="marquee">
-    <div>ZENJI — DROP 001 — STREET CULTURE — ANIME ROOTS — ZENJI — DROP 001 — STREET CULTURE — ANIME ROOTS — </div>
+  // two identical halves; the CSS shifts the track by exactly -50%, so the
+  // halves must each be wider than the viewport for a gap-free infinite loop
+  const half = 'ZENJI — DROP 001 — STREET CULTURE — ANIME ROOTS — '.repeat(6);
+  return <div className="marquee" aria-hidden="true">
+    <div>{half}{half}</div>
   </div>
 }
 

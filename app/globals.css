@@ -206,7 +206,10 @@ button {
 }
 
 .marquee div {
-    animation: marquee 30s linear infinite
+    display: inline-block;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+    will-change: transform
 }
 
 @keyframes marquee {
