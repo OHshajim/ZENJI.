@@ -1308,6 +1308,40 @@ body::after {
     padding: 6px 0
 }
 
+/* anime hover: english label flips out, katakana slides in.
+   the grid stacks both labels in one cell so the link is as wide
+   as the wider of the two and nothing wraps or clips */
+.nav-flip {
+    display: inline-grid;
+    overflow: hidden
+}
+
+.nav-flip>span {
+    grid-area: 1 / 1;
+    white-space: nowrap
+}
+
+.desktop-nav .nav-label {
+    transition: transform .35s cubic-bezier(.7, 0, .2, 1), opacity .35s
+}
+
+.desktop-nav .nav-kana {
+    color: var(--red);
+    transform: translateY(105%);
+    transition: transform .35s cubic-bezier(.7, 0, .2, 1)
+}
+
+.desktop-nav a:hover .nav-label,
+.desktop-nav a.active .nav-label {
+    transform: translateY(-105%);
+    opacity: 0
+}
+
+.desktop-nav a:hover .nav-kana,
+.desktop-nav a.active .nav-kana {
+    transform: translateY(0)
+}
+
 .desktop-nav a::after {
     content: '';
     position: absolute;
@@ -1326,6 +1360,34 @@ body::after {
 
 .desktop-nav a.active {
     color: var(--red)
+}
+
+.nav-actions a,
+.nav-actions button {
+    transition: color .2s, transform .2s
+}
+
+.nav-actions a:hover,
+.nav-actions button:hover {
+    color: var(--red);
+    transform: translateY(-1px)
+}
+
+.mobile-menu nav a {
+    transition: color .25s, padding-left .3s cubic-bezier(.22, 1, .36, 1)
+}
+
+.mobile-menu nav a:hover {
+    color: var(--red);
+    padding-left: 16px
+}
+
+.mobile-menu nav svg {
+    transition: transform .3s
+}
+
+.mobile-menu nav a:hover svg {
+    transform: translate(5px, -5px)
 }
 
 .mobile-menu nav a.active {
@@ -1444,8 +1506,8 @@ body::after {
 }
 
 .empty h2 {
-    font: 700 clamp(42px, 6vw, 88px)/.9 var(--display);
-    letter-spacing: -.07em;
+    font: 700 clamp(24px, 3vw, 38px)/1 var(--display);
+    letter-spacing: -.03em;
     margin: 14px 0
 }
 
@@ -1467,6 +1529,53 @@ body::after {
 
 .mobile-social a:hover {
     color: var(--red)
+}
+
+/* chakra bubbles drifting up behind the fullscreen menu */
+.menu-bubbles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none
+}
+
+.menu-bubbles span {
+    position: absolute;
+    bottom: -80px;
+    left: var(--x);
+    width: var(--s);
+    height: var(--s);
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 30%, #f3f1ed26, #d6282830 48%, transparent 72%);
+    border: 1px solid #d6282840;
+    box-shadow: inset 0 0 18px #d6282822, 0 0 14px #d6282818;
+    opacity: 0;
+    animation: bubble-rise var(--d) linear var(--delay) infinite
+}
+
+@keyframes bubble-rise {
+    0% {
+        transform: translate(0, 0) scale(.7);
+        opacity: 0
+    }
+
+    10% {
+        opacity: .85
+    }
+
+    50% {
+        transform: translate(var(--sway), -48vh) scale(1.06);
+        opacity: .55
+    }
+
+    90% {
+        opacity: .12
+    }
+
+    100% {
+        transform: translate(calc(var(--sway) * -.6), -96vh) scale(.9);
+        opacity: 0
+    }
 }
 
 /* ---- Support / policy pages ---- */
@@ -1537,6 +1646,112 @@ body::after {
 @media(max-width:800px) {
     .policy {
         padding: 70px 6vw 90px
+    }
+}
+
+/* ---- Anime motion ---- */
+.hero-copy>* {
+    opacity: 0;
+    animation: hero-in .8s cubic-bezier(.22, 1, .36, 1) forwards
+}
+
+.hero-copy>*:nth-child(1) { animation-delay: .15s }
+.hero-copy>*:nth-child(2) { animation-delay: .3s }
+.hero-copy>*:nth-child(3) { animation-delay: .45s }
+.hero-copy>*:nth-child(4) { animation-delay: .6s }
+
+@keyframes hero-in {
+    from {
+        opacity: 0;
+        transform: translateY(34px)
+    }
+
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+
+/* one-shot red slash sweeping across the hero on load */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: 0;
+    width: 34%;
+    height: 160%;
+    background: linear-gradient(100deg, transparent 0%, #d6282840 45%, #ff5a5acc 50%, #d6282840 55%, transparent 100%);
+    transform: translateX(-160%) skewX(-14deg);
+    animation: hero-slash 1.1s .5s cubic-bezier(.7, 0, .2, 1) forwards;
+    pointer-events: none;
+    z-index: 1
+}
+
+@keyframes hero-slash {
+    to {
+        transform: translateX(480%) skewX(-14deg)
+    }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s cubic-bezier(.22, 1, .36, 1);
+    will-change: opacity, transform
+}
+
+.reveal.shown {
+    opacity: 1;
+    transform: none
+}
+
+.product-cell {
+    min-width: 0
+}
+
+.shop-header,
+.cart-page,
+.checkout-page,
+.policy,
+.detail-info {
+    animation: page-in .7s cubic-bezier(.22, 1, .36, 1) both
+}
+
+@keyframes page-in {
+    from {
+        opacity: 0;
+        transform: translateY(18px)
+    }
+
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+
+.section h2 {
+    position: relative
+}
+
+.section-head.shown h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 64px;
+    height: 3px;
+    background: var(--red);
+    transform-origin: left;
+    animation: slash-underline .5s .3s cubic-bezier(.7, 0, .2, 1) both
+}
+
+@keyframes slash-underline {
+    from {
+        transform: scaleX(0)
+    }
+
+    to {
+        transform: scaleX(1)
     }
 }
 

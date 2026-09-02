@@ -7,7 +7,7 @@ export const products: Product[] = [
   ['shadow-hoodie','Shadow Hoodie','Hoodies',89,'Heavyweight oversized fleece cut for the hours after dark.','After Dark',true,true],
   ['oni-tee','Oni Tee','T-Shirts',48,'A structured cotton tee with a graphic language all its own.','Ronin',true,true],
   ['tokyo-after-dark-tee','Tokyo After Dark Tee','T-Shirts',52,'Midweight jersey, relaxed fit, night-shift energy.','Tokyo Nights',true,false],
-  ['ronin-hoodie','Ronin Oversized Hoodie','Hoodies',98,'A roomy everyday layer with architectural drape.','Ronin',false,false],
+  ['ronin-hoodie','Ronin Oversized Hoodie','Hoodies',98,'A roomy everyday layer with architectural drape.','Ronin',true,false],
   ['neon-district-jacket','Neon District Jacket','Jackets',168,'Water-resistant shell built for sudden weather and late trains.','Tokyo Nights',true,true],
   ['kage-cargo-pants','Kage Cargo Pants','Pants',118,'Tactical pockets, wide leg, movement-first construction.','After Dark',true,false],
   ['core-tee','Zenji Core Tee','T-Shirts',42,'The essential. Dense cotton, precise proportions.','Core',false,false],

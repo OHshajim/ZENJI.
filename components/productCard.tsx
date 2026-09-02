@@ -3,14 +3,16 @@
 import { products } from "@/data/products";
 import { Product } from "@/types/product";
 import { useWishlist } from "@/components/storefront";
+import { Reveal } from "@/components/reveal";
 import { ArrowUpRight, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
     const { ids, toggle } = useWishlist();
     const wish = ids.includes(product.id);
-    return <article className="product-card">
+    return <Reveal className="product-cell" delay={(index % 4) * 90}>
+        <article className="product-card">
         <Link href={`/shop/${product.slug}`} className="product-image">
             <Image src={product.images[0]} alt={product.name} fill sizes="(max-width: 700px) 50vw, 25vw" />
             <Image className="second-image" src={product.images[1]} alt="" fill sizes="(max-width: 700px) 50vw, 25vw" />
@@ -27,9 +29,10 @@ export function ProductCard({ product }: { product: Product }) {
             <strong>${product.price}</strong>
         </div>
         <button className="quick-add" onClick={() => window.dispatchEvent(new CustomEvent('zenji:add', { detail: { product, size: product.sizes[0], color: product.colors[0] } }))}>Quick add <ArrowUpRight size={15} /></button>
-    </article>
+        </article>
+    </Reveal>
 }
 
 export function ProductGrid({ items = products }: { items?: Product[] }) {
-    return <div className="product-grid">{items.map(p => <ProductCard key={p.id} product={p} />)}</div>
+    return <div className="product-grid">{items.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}</div>
 }
