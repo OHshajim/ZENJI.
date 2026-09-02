@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { use, useState } from 'react'
 import { ArrowUpRight, Heart } from 'lucide-react'
 import { getProduct, products } from '@/data/products'
-import { ProductGrid } from '@/components/storefront'
+import { ProductGrid } from '@/components/productCard'
 
 export default function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);

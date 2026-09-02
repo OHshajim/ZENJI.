@@ -111,6 +111,11 @@ button {
     display: flex
 }
 
+.cart-link {
+    display: flex;
+    align-items: center;
+}
+
 .menu-button {
     display: none
 }
@@ -537,21 +542,125 @@ footer {
 
 .filters {
     display: flex;
-    gap: 10px;
-    padding: 0 4vw 30px;
+    align-items: center;
+    padding: 0 4vw;
     max-width: 1400px;
     margin: auto;
-    flex-wrap: wrap
+    border-bottom: 1px solid var(--line);
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 0;
 }
 
-.filters button,
-.filters select {
-    background: var(--bg);
-    border: 1px solid var(--line);
+.filters::-webkit-scrollbar {
+    display: none
+}
+
+.filter-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 0;
+    flex-shrink: 0;
+    color: var(--muted);
+    transition: color .2s;
+    border-right: 1px solid var(--line);
+    padding-right: 20px;
+    margin-right: 4px;
+}
+
+.filter-search:focus-within {
+    color: var(--fg)
+}
+
+.filter-search input {
+    background: none;
+    border: 0;
+    outline: 0;
     color: var(--fg);
-    padding: 12px 14px;
+    font: 11px 'Courier New', monospace;
+    letter-spacing: .1em;
     text-transform: uppercase;
-    font: 10px 'Courier New', monospace
+    width: 140px;
+    transition: width .3s ease
+}
+
+.filter-search input::placeholder {
+    color: var(--muted)
+}
+
+.filter-search input:focus {
+    width: 200px
+}
+
+.filter-cats {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0
+}
+
+.filters button {
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    color: var(--muted);
+    padding: 18px 14px;
+    text-transform: uppercase;
+    font: 10px 'Courier New', monospace;
+    letter-spacing: .12em;
+    transition: color .2s, border-color .2s;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: -1px
+}
+
+.filters button:hover {
+    color: var(--fg)
+}
+
+.filters button.active {
+    color: var(--fg);
+    border-bottom-color: var(--red)
+}
+
+.filter-count {
+    font-size: 9px;
+    color: var(--muted);
+    transition: color .2s
+}
+
+.filters button.active .filter-count {
+    color: var(--red)
+}
+
+.filter-sort {
+    margin-left: auto;
+    flex-shrink: 0;
+    background: transparent;
+    border: 0;
+    border-left: 1px solid var(--line);
+    color: var(--muted);
+    padding: 18px 0 18px 20px;
+    text-transform: uppercase;
+    font: 10px 'Courier New', monospace;
+    letter-spacing: .12em;
+    outline: 0;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: color .2s
+}
+
+.filter-sort:hover,
+.filter-sort:focus {
+    color: var(--fg)
+}
+
+.filter-sort option {
+    background: var(--bg);
+    color: var(--fg)
 }
 
 .shop-grid {
@@ -660,7 +769,8 @@ footer {
 
 .cart-page h1 {
     font: 700 clamp(64px, 10vw, 140px)/.8 var(--display);
-    letter-spacing: -.09em
+    letter-spacing: -.09em;
+    padding-bottom: 30px;
 }
 
 .cart-row {
@@ -781,9 +891,21 @@ footer {
     }
 
     .filters {
-        padding: 0 6vw 25px;
-        flex-wrap: nowrap;
-        overflow: auto
+        padding: 0 6vw;
+        gap: 0
+    }
+
+    .filter-search {
+        padding-right: 14px;
+        margin-right: 0
+    }
+
+    .filter-search input:focus {
+        width: 140px
+    }
+
+    .filters button {
+        padding: 16px 10px
     }
 
     .shop-grid {
