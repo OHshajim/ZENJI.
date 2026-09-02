@@ -2,20 +2,21 @@
 
 import { products } from "@/data/products";
 import { Product } from "@/types/product";
+import { useWishlist } from "@/components/storefront";
 import { ArrowUpRight, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 export function ProductCard({ product }: { product: Product }) {
-    const [wish, setWish] = useState(false);
+    const { ids, toggle } = useWishlist();
+    const wish = ids.includes(product.id);
     return <article className="product-card">
         <Link href={`/shop/${product.slug}`} className="product-image">
             <Image src={product.images[0]} alt={product.name} fill sizes="(max-width: 700px) 50vw, 25vw" />
             <Image className="second-image" src={product.images[1]} alt="" fill sizes="(max-width: 700px) 50vw, 25vw" />
             {product.isNew && <span className="badge">New</span>}
         </Link>
-        <button className={`wishlist ${wish ? 'active' : ''}`} onClick={() => setWish(!wish)} aria-label={`${wish ? 'Remove' : 'Add'} ${product.name} from wishlist`}>
+        <button className={`wishlist ${wish ? 'active' : ''}`} onClick={() => toggle(product.id)} aria-label={`${wish ? 'Remove' : 'Add'} ${product.name} ${wish ? 'from' : 'to'} wishlist`}>
             <Heart size={17} fill={wish ? 'currentColor' : 'none'} />
         </button>
         <div className="product-meta">

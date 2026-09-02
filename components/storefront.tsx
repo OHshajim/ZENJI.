@@ -45,3 +45,35 @@ export function CartSummary() {
 }
 
 export const useFeatured = () => useMemo(() => featuredProducts, [])
+
+const WishContext = createContext<{ ids: string[]; toggle: (id: string) => void } | null>(null)
+
+export function WishlistProvider({ children }: { children: React.ReactNode }) {
+  const [ids, setIds] = useState<string[]>([]);
+  useEffect(() => { const raw = localStorage.getItem('zenji-wishlist'); if (raw) setIds(JSON.parse(raw)) }, []);
+  // A wished piece that moves to the bag has served its purpose — drop it from the wishlist
+  useEffect(() => {
+    const fn = (e: Event) => {
+      const id = ((e as CustomEvent).detail as { product: { id: string } }).product.id;
+      setIds(old => {
+        const next = old.filter(x => x !== id);
+        if (next.length === old.length) return old;
+        localStorage.setItem('zenji-wishlist', JSON.stringify(next));
+        return next;
+      });
+    };
+    window.addEventListener('zenji:add', fn);
+    return () => window.removeEventListener('zenji:add', fn);
+  }, []);
+  const toggle = (id: string) => setIds(old => {
+    const next = old.includes(id) ? old.filter(x => x !== id) : [...old, id];
+    localStorage.setItem('zenji-wishlist', JSON.stringify(next));
+    return next;
+  });
+  return <WishContext.Provider value={{ ids, toggle }}>{children}</WishContext.Provider>
+}
+
+export function useWishlist() {
+  const c = useContext(WishContext);
+  if (!c) throw new Error('useWishlist must be inside WishlistProvider'); return c
+}

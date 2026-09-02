@@ -783,7 +783,9 @@ footer {
 }
 
 .cart-row img {
-    object-fit: cover
+    object-fit: cover;
+    width: 100px;
+    height: 120px
 }
 
 .cart-row h3 {
@@ -982,4 +984,567 @@ footer {
 :focus-visible {
     outline: 2px solid var(--red);
     outline-offset: 3px
+}
+
+/* ---- Dōjutsu cursor: Rinnegan <-> Sharingan morph (Naruto inspired) ---- */
+.dojutsu-orb,
+.chakra-particle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999
+}
+
+.dojutsu-orb {
+    width: 26px;
+    height: 26px;
+    will-change: transform
+}
+
+.dojutsu-eye {
+    width: 100%;
+    height: 100%;
+    transition: transform .25s;
+    animation: eye-glow 10s linear infinite
+}
+
+.dojutsu-orb.hovering .dojutsu-eye {
+    transform: scale(1.7)
+}
+
+.dojutsu-eye svg {
+    display: block;
+    width: 100%;
+    height: 100%
+}
+
+.dojutsu-eye .iris {
+    transform-box: view-box;
+    transform-origin: center;
+    animation: iris-spin 9s linear infinite
+}
+
+.dojutsu-eye .rinnegan-face {
+    animation: face-rinnegan 10s linear infinite
+}
+
+.dojutsu-eye .sharingan-face {
+    animation: face-sharingan 10s linear infinite
+}
+
+@keyframes iris-spin {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes face-rinnegan {
+    0%, 40% { opacity: 1 }
+    50%, 90% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+@keyframes face-sharingan {
+    0%, 40% { opacity: 0 }
+    50%, 90% { opacity: 1 }
+    100% { opacity: 0 }
+}
+
+@keyframes eye-glow {
+    0%, 40% { filter: drop-shadow(0 0 8px #9a7ff0aa) }
+    55%, 85% { filter: drop-shadow(0 0 10px #ff4d4dcc) }
+    100% { filter: drop-shadow(0 0 8px #9a7ff0aa) }
+}
+
+.chakra-particle {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    animation: chakra-burst .6s ease-out forwards
+}
+
+@keyframes chakra-burst {
+    to {
+        transform: translate(var(--dx), var(--dy)) scale(0);
+        opacity: 0
+    }
+}
+
+@media(hover:hover) and (pointer:fine) {
+    .dojutsu-on,
+    .dojutsu-on * {
+        cursor: none !important
+    }
+}
+
+/* ---- Checkout page ---- */
+.checkout-page {
+    max-width: 1100px;
+    margin: auto;
+    padding: 90px 4vw 120px
+}
+
+.checkout-page h1 {
+    font: 700 clamp(64px, 10vw, 140px)/.8 var(--display);
+    letter-spacing: -.09em;
+    padding-bottom: 40px
+}
+
+.checkout-page h1 em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--fg)
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 5vw;
+    align-items: start
+}
+
+.checkout-form .field {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--fg);
+    padding: 14px 0;
+    outline: 0;
+    margin-top: 14px;
+    transition: border-color .25s
+}
+
+.checkout-form .field::placeholder {
+    color: var(--muted)
+}
+
+.checkout-form .field:focus {
+    border-bottom-color: var(--red)
+}
+
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px
+}
+
+.field-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 11px 'Courier New', monospace;
+    margin-top: 18px
+}
+
+.checkout-back {
+    display: inline-block;
+    margin-top: 22px;
+    font: 11px 'Courier New', monospace;
+    letter-spacing: .1em;
+    text-transform: uppercase
+}
+
+.checkout-back:hover {
+    color: var(--red)
+}
+
+.checkout-aside {
+    border: 1px solid var(--line);
+    padding: 28px;
+    position: sticky;
+    top: 106px
+}
+
+.checkout-line {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line)
+}
+
+.checkout-line img {
+    object-fit: cover;
+    filter: grayscale(1);
+    width: 64px;
+    height: 76px
+}
+
+.checkout-line h3 {
+    font-size: 14px;
+    margin: 0 0 6px;
+    font-weight: 500
+}
+
+.checkout-line span {
+    color: var(--muted);
+    font: 11px 'Courier New', monospace
+}
+
+.checkout-line strong {
+    font-size: 13px
+}
+
+.checkout-totals div {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0 0;
+    font: 11px 'Courier New', monospace;
+    color: var(--muted)
+}
+
+.checkout-totals .cart-total {
+    color: var(--fg);
+    border-top: 1px solid var(--fg);
+    margin-top: 14px;
+    padding-top: 18px
+}
+
+.checkout-seal {
+    display: inline-block;
+    writing-mode: vertical-rl;
+    font-size: 34px;
+    letter-spacing: .3em;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 26px 12px;
+    margin: 40px 0
+}
+
+@media(max-width:800px) {
+    .checkout-page {
+        padding: 70px 6vw 90px
+    }
+
+    .checkout-grid {
+        grid-template-columns: 1fr;
+        gap: 50px
+    }
+
+    .field-row {
+        grid-template-columns: 1fr;
+        gap: 0
+    }
+}
+
+/* ---- Anime vibe touches ---- */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    background: repeating-linear-gradient(0deg, transparent 0 3px, #ffffff05 3px 4px);
+    mix-blend-mode: overlay
+}
+
+.hero h1,
+.section h2,
+.shop-header h1,
+.detail h1,
+.cart-page h1,
+.checkout-page h1 {
+    text-shadow: 0 0 30px #d6282822
+}
+
+.button {
+    position: relative;
+    overflow: hidden
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, #ffffff33 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform .6s
+}
+
+.button:hover::before {
+    transform: translateX(120%)
+}
+
+.button:hover {
+    box-shadow: 0 0 18px 0 #d6282855
+}
+
+.badge::after {
+    content: ' 極'
+}
+
+/* ---- Navbar anime accents ---- */
+.nav::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--red), transparent 45%)
+}
+
+.wordmark {
+    display: flex;
+    align-items: baseline;
+    gap: 9px
+}
+
+.wordmark-kana {
+    font: 10px 'Courier New', monospace;
+    letter-spacing: .3em;
+    color: var(--muted)
+}
+
+.desktop-nav a {
+    position: relative;
+    padding: 6px 0
+}
+
+.desktop-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    height: 1px;
+    background: var(--red);
+    transition: right .25s
+}
+
+.desktop-nav a:hover::after,
+.desktop-nav a.active::after {
+    right: 0
+}
+
+.desktop-nav a.active {
+    color: var(--red)
+}
+
+.mobile-menu nav a.active {
+    color: var(--red)
+}
+
+.cart-link {
+    position: relative
+}
+
+.cart-count {
+    position: absolute;
+    top: -2px;
+    right: -9px;
+    min-width: 15px;
+    height: 15px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: var(--red);
+    color: #fff;
+    font: 9px/15px 'Courier New', monospace;
+    text-align: center
+}
+
+.nav-icon-active {
+    color: var(--red)
+}
+
+/* ---- Wishlist page ---- */
+.wishlist-row {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 22px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+    align-items: center
+}
+
+.wishlist-row img {
+    object-fit: cover;
+    width: 100px;
+    height: 120px;
+    filter: grayscale(1);
+    transition: filter .3s
+}
+
+.wishlist-row:hover img {
+    filter: none
+}
+
+.wishlist-row h3 {
+    font-size: 15px;
+    margin: 0 0 8px
+}
+
+.wishlist-row span {
+    display: block;
+    color: var(--muted);
+    font: 11px 'Courier New', monospace;
+    text-transform: uppercase
+}
+
+.wishlist-row-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--fg);
+    padding: 9px 14px;
+    margin-top: 14px;
+    text-transform: uppercase;
+    font: 10px 'Courier New', monospace;
+    letter-spacing: .12em;
+    transition: .25s
+}
+
+.wishlist-row-add:hover {
+    background: var(--fg);
+    color: var(--bg)
+}
+
+.wishlist-row-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px
+}
+
+.wishlist-row-side strong {
+    font-size: 13px
+}
+
+.wishlist-row-side .wishlist {
+    position: static;
+    background: none;
+    border: 1px solid var(--line);
+    padding: 9px
+}
+
+.wishlist-row-side .wishlist:hover {
+    border-color: var(--red)
+}
+
+.button.saved {
+    background: var(--red);
+    color: var(--fg)
+}
+
+.detail-info .button + .button {
+    margin-top: 10px
+}
+
+.empty {
+    padding: 20px 0 10px
+}
+
+.empty h2 {
+    font: 700 clamp(42px, 6vw, 88px)/.9 var(--display);
+    letter-spacing: -.07em;
+    margin: 14px 0
+}
+
+.empty p {
+    margin: 0 0 34px;
+    max-width: 420px
+}
+
+.footer-credit {
+    color: var(--red);
+    border-bottom: 1px solid var(--red);
+    padding-bottom: 1px;
+    transition: opacity .2s
+}
+
+.footer-credit:hover {
+    opacity: .7
+}
+
+.mobile-social a:hover {
+    color: var(--red)
+}
+
+/* ---- Support / policy pages ---- */
+.policy {
+    max-width: 900px;
+    margin: auto;
+    padding: 90px 4vw 120px
+}
+
+.policy h1 {
+    font: 700 clamp(62px, 10vw, 145px)/.8 var(--display);
+    letter-spacing: -.09em;
+    margin: 15px 0 45px
+}
+
+.policy p {
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 640px;
+    margin: 16px 0 0
+}
+
+.policy p strong {
+    color: var(--fg);
+    font-weight: 500
+}
+
+.table-wrap {
+    overflow-x: auto;
+    margin-top: 18px
+}
+
+.size-table {
+    width: 100%;
+    min-width: 460px;
+    border-collapse: collapse;
+    font: 12px 'Courier New', monospace;
+    letter-spacing: .04em
+}
+
+.size-table th {
+    text-align: left;
+    color: var(--muted);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--fg)
+}
+
+.size-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line)
+}
+
+.size-table td:first-child {
+    color: var(--red)
+}
+
+.size-table tr:hover td {
+    background: var(--soft)
+}
+
+.policy-cta {
+    margin-top: 30px
+}
+
+@media(max-width:800px) {
+    .policy {
+        padding: 70px 6vw 90px
+    }
+}
+
+@media(max-width:800px) {
+    .wishlist-row {
+        grid-template-columns: 76px 1fr auto;
+        gap: 12px
+    }
+
+    .wishlist-row img {
+        width: 76px;
+        height: 92px
+    }
 }

@@ -5,14 +5,17 @@ import { use, useState } from 'react'
 import { ArrowUpRight, Heart } from 'lucide-react'
 import { getProduct, products } from '@/data/products'
 import { ProductGrid } from '@/components/productCard'
+import { useWishlist } from '@/components/storefront'
 
 export default function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
     const p = getProduct(slug);
+    const { ids, toggle } = useWishlist();
     if (!p) return <main className="cart-page"><h1>Product not found<span className="dot">.</span></h1><Link className="button" href="/shop">Back to shop <ArrowUpRight /></Link></main>;
     const [image, setImage] = useState(0),
         [size, setSize] = useState(p.sizes[0]),
         [color, setColor] = useState(p.colors[0]);
+    const saved = ids.includes(p.id);
     return <main>
         <div className="detail">
             <div>
@@ -31,11 +34,11 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
                     <div className="choices">{p.colors.map(c => <button className={color === c ? 'active' : ''} key={c} onClick={() => setColor(c)}>{c}</button>)}</div>
                 </div>
                 <div className="option">
-                    <div className="option-label"><span>Size</span><Link href="#size-guide">Size guide</Link></div>
+                        <div className="option-label"><span>Size</span><Link href="/size-guide">Size guide</Link></div>
                     <div className="choices">{p.sizes.map(s => <button className={size === s ? 'active' : ''} key={s} onClick={() => setSize(s)}>{s}</button>)}</div>
                 </div>
                 <button className="button button-light add-button" onClick={() => window.dispatchEvent(new CustomEvent('zenji:add', { detail: { product: p, size, color } }))}>Add to bag <ArrowUpRight /></button>
-                <button className="button" onClick={() => window.dispatchEvent(new CustomEvent('zenji:add', { detail: { product: p, size, color } }))}><Heart size={17} /> Save piece</button>
+                <button className={`button ${saved ? 'saved' : ''}`} onClick={() => toggle(p.id)}><Heart size={17} fill={saved ? 'currentColor' : 'none'} /> {saved ? 'Saved to wishlist' : 'Save piece'}</button>
                 <div className="option">
                     <div className="option-label"><span>Details</span><span>+</span></div>
                     <p>{p.details.join(' / ')}</p>

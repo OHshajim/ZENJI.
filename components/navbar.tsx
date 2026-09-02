@@ -1,10 +1,10 @@
 "use client"
 
-import { ArrowUpRight, ShoppingBag, Menu, Search, X } from "lucide-react"
+import { ArrowUpRight, Heart, ShoppingBag, Menu, Search, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
-import { useCart } from "./storefront"
+import { useCart, useWishlist } from "./storefront"
 import { products } from "@/data/products"
 
 const NAV_LINKS = [
@@ -21,7 +21,7 @@ export function Navbar() {
     const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href)
     return <>
         <header className="nav">
-            <Link href="/" className="wordmark">ZENJI<span className="dot">.</span></Link>
+            <Link href="/" className="wordmark">ZENJI<span className="dot">.</span><span className="wordmark-kana">ゼンジ</span></Link>
             <nav className="desktop-nav">
                 {NAV_LINKS.map(({ href, label }) => (
                     <Link key={href} href={href} className={isActive(href) ? 'active' : ''}>{label}</Link>
@@ -29,6 +29,7 @@ export function Navbar() {
             </nav>
             <div className="nav-actions">
                 <button aria-label="Search" onClick={() => setSearch(true)}><Search size={18} /></button>
+                <Link href="/wishlist" aria-label="Wishlist" className={`cart-link ${isActive('/wishlist') ? 'nav-icon-active' : ''}`}><Heart size={18} /><sup><WishCount /></sup></Link>
                 <Link href="/cart" aria-label="Cart" className="cart-link"><ShoppingBag size={18} /><sup><CartCount /></sup></Link>
                 <button className="menu-button" aria-label="Open menu" onClick={() => setOpen(true)}><Menu size={20} /></button>
             </div>
@@ -43,7 +44,7 @@ export function Navbar() {
                     </Link>
                 ))}
             </nav>
-            <div className="mobile-social">Instagram / TikTok / X</div>
+            <div className="mobile-social"><a href="https://shajim-portfolio.vercel.app/" target="_blank" rel="noreferrer">Instagram</a> / <a href="https://shajim-portfolio.vercel.app/" target="_blank" rel="noreferrer">TikTok</a> / <a href="https://shajim-portfolio.vercel.app/" target="_blank" rel="noreferrer">X</a></div>
         </div>}
         {search && <SearchOverlay close={() => setSearch(false)} />}
     </>
@@ -65,4 +66,9 @@ function SearchOverlay({ close }: { close: () => void }) {
 export function CartCount() {
     const { items } = useCart();
     return <>{items.reduce((a, i) => a + i.quantity, 0) > 0 && <span className="cart-count">{items.reduce((a, i) => a + i.quantity, 0)}</span>}</>
+}
+
+export function WishCount() {
+    const { ids } = useWishlist();
+    return <>{ids.length > 0 && <span className="cart-count">{ids.length}</span>}</>
 }

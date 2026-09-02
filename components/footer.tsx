@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+const PORTFOLIO = "https://shajim-portfolio.vercel.app/";
+
 export function Footer() {
     return <footer>
         <div className="footer-top">
@@ -13,19 +15,19 @@ export function Footer() {
                 <Link href="/about">About</Link>
             </div>
             <div><span className="kicker">Customer</span>
-                <a href="#">Shipping</a>
-                <a href="#">Returns</a>
-                <a href="#">Size guide</a>
+                <Link href="/shipping">Shipping</Link>
+                <Link href="/returns">Returns</Link>
+                <Link href="/size-guide">Size guide</Link>
             </div>
             <div><span className="kicker">Follow</span>
-                <a href="#">Instagram</a>
-                <a href="#">TikTok</a>
-                <a href="#">X / Twitter</a>
+                <a href={PORTFOLIO} target="_blank" rel="noreferrer">Instagram</a>
+                <a href={PORTFOLIO} target="_blank" rel="noreferrer">TikTok</a>
+                <a href={PORTFOLIO} target="_blank" rel="noreferrer">X / Twitter</a>
             </div>
         </div>
         <div className="footer-bottom">
             © 2026 ZENJI. ALL RIGHTS RESERVED.
-            <span>PRIVACY &nbsp; TERMS</span>
+            <span>MADE BY <a className="footer-credit" href={PORTFOLIO} target="_blank" rel="noreferrer">SHAJIM AHMED</a></span>
         </div>
     </footer>
 }

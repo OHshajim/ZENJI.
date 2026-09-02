@@ -12,7 +12,7 @@ export default function Cart() {
                 items.length ?
                     <>
                         <CartSummary />
-                        <button className="button button-light" onClick={() => alert('Checkout is intentionally mocked for this frontend assessment.')}>Checkout <ArrowUpRight /></button>
+                        <Link className="button button-light" href="/checkout">Checkout <ArrowUpRight /></Link>
                     </> :
                     <div className="empty">
                         <h2>Your bag is empty.</h2>
