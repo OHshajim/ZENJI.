@@ -2,7 +2,7 @@
 
 A dark, editorial front-end storefront for a fictional anime-rooted streetwear label, built with Next.js 16, React 19, and Tailwind CSS v4 — complete with a dōjutsu custom cursor, katakana nav hovers, and a chakra-bubble menu.
 
-**Live:** _pending first deploy — see [Deployment](#deployment)_
+**Live:** [zenji-gray.vercel.app](https://zenji-gray.vercel.app/)
 **GitHub:** <https://github.com/OHshajim/ZENJI.>
 
 ## Features

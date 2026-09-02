@@ -14,20 +14,6 @@ const NAV_LINKS = [
     { href: '/about', label: 'About', kana: 'について' },
 ]
 
-// chakra bubbles drifting up behind the fullscreen menu
-const BUBBLES = [
-    { x: '6%', s: 74, d: 14, delay: 0, sway: 42 },
-    { x: '16%', s: 26, d: 11, delay: 2.2, sway: -30 },
-    { x: '27%', s: 52, d: 16, delay: 4.5, sway: 36 },
-    { x: '38%', s: 18, d: 10, delay: 1.2, sway: -24 },
-    { x: '49%', s: 88, d: 18, delay: 3, sway: 50 },
-    { x: '61%', s: 34, d: 12, delay: 5.8, sway: -40 },
-    { x: '70%', s: 60, d: 15, delay: 0.8, sway: 30 },
-    { x: '80%', s: 22, d: 9.5, delay: 3.9, sway: -26 },
-    { x: '89%', s: 46, d: 13, delay: 6.4, sway: 44 },
-    { x: '95%', s: 30, d: 11.5, delay: 2.8, sway: -34 },
-]
-
 export function Navbar() {
     const [open, setOpen] = useState(false)
     const [search, setSearch] = useState(false)
@@ -54,11 +40,6 @@ export function Navbar() {
             </div>
         </header>
         {open && <div className="mobile-menu">
-            <div className="menu-bubbles" aria-hidden="true">
-                {BUBBLES.map((b, i) => (
-                    <span key={i} style={{ '--x': b.x, '--s': `${b.s}px`, '--d': `${b.d}s`, '--delay': `${b.delay}s`, '--sway': `${b.sway}px` } as React.CSSProperties} />
-                ))}
-            </div>
             <button className="close" onClick={() => setOpen(false)} aria-label="Close menu"><X /></button>
             <span className="kicker">ZENJI TOKYO / 2026</span>
             <nav>

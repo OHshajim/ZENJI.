@@ -493,7 +493,7 @@ footer {
 }
 
 .mobile-menu nav svg {
-    width: 30px
+    width: .55em
 }
 
 .mobile-social {
@@ -1373,13 +1373,8 @@ body::after {
     transform: translateY(-1px)
 }
 
-.mobile-menu nav a {
-    transition: color .25s, padding-left .3s cubic-bezier(.22, 1, .36, 1)
-}
-
 .mobile-menu nav a:hover {
-    color: var(--red);
-    padding-left: 16px
+    color: var(--red)
 }
 
 .mobile-menu nav svg {
@@ -1531,51 +1526,25 @@ body::after {
     color: var(--red)
 }
 
-/* chakra bubbles drifting up behind the fullscreen menu */
-.menu-bubbles {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none
+/* fullscreen menu accordion: hovered/active link expands, others collapse */
+.mobile-menu nav a {
+    font: 700 clamp(30px, 6.5vw, 64px)/1 var(--display);
+    letter-spacing: -.05em;
+    border-bottom: 1px solid var(--line);
+    padding: 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: .4;
+    transition: font-size .45s cubic-bezier(.22, 1, .36, 1), opacity .45s, color .25s
 }
 
-.menu-bubbles span {
-    position: absolute;
-    bottom: -80px;
-    left: var(--x);
-    width: var(--s);
-    height: var(--s);
-    border-radius: 50%;
-    background: radial-gradient(circle at 32% 30%, #f3f1ed26, #d6282830 48%, transparent 72%);
-    border: 1px solid #d6282840;
-    box-shadow: inset 0 0 18px #d6282822, 0 0 14px #d6282818;
-    opacity: 0;
-    animation: bubble-rise var(--d) linear var(--delay) infinite
-}
-
-@keyframes bubble-rise {
-    0% {
-        transform: translate(0, 0) scale(.7);
-        opacity: 0
-    }
-
-    10% {
-        opacity: .85
-    }
-
-    50% {
-        transform: translate(var(--sway), -48vh) scale(1.06);
-        opacity: .55
-    }
-
-    90% {
-        opacity: .12
-    }
-
-    100% {
-        transform: translate(calc(var(--sway) * -.6), -96vh) scale(.9);
-        opacity: 0
-    }
+.mobile-menu nav a:hover,
+.mobile-menu nav a:focus-visible,
+.mobile-menu nav a.active {
+    font-size: clamp(48px, 12vw, 120px);
+    letter-spacing: -.08em;
+    opacity: 1
 }
 
 /* ---- Support / policy pages ---- */
